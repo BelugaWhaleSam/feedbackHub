@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import {useUserContext} from '@/lib/auth';
-import {Heading, Button, Text, Code} from '@chakra-ui/react';
+import {Button, Icon, Flex} from '@chakra-ui/react';
+import {logo} from '@/styles/theme';
 
 export default function Home() {
     const {user, logoutUser, signInWithGithub} = useUserContext();
@@ -11,18 +12,17 @@ export default function Home() {
                 <title>Fast Feedback</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main>
-                <Heading>Fast Feedback</Heading>
+            <Flex as="main" direction="column" align="center" justify="center" h="100vh">
+                <Icon as={logo} boxSize="64px" />
 
                 {user ? (
-                    <Button onClick={logoutUser}>Sign Out</Button>
+                    <Button onClick={logoutUser}>Sign Out</Button>               
                 ) : (
-                    <Button onClick={signInWithGithub}>Sign In</Button>
+                    <Button mt={4} size="sm" onClick={signInWithGithub}>
+                        Sign In
+                    </Button>
                 )}
-                <Text>
-                    Current User: <Code>{user?.email}</Code>
-                </Text>
-            </main>
+            </Flex>
         </>
     );
 }
