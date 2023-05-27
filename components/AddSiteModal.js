@@ -1,6 +1,7 @@
 import {useRef} from 'react';
 import {useForm} from 'react-hook-form';
-import { createSite } from '@/lib/db';
+import {createSite} from '@/lib/db';
+import {useUserContext} from '@/lib/auth';
 
 import {
     Modal,
@@ -15,11 +16,14 @@ import {
     Input,
     useDisclosure,
     Button,
+    useToast,
 } from '@chakra-ui/react';
 
 const AddSiteModal = () => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const initialRef = useRef(null);
+    const {user} = useUserContext();
+    const toast = useToast();
 
     const {
         register,
@@ -27,7 +31,22 @@ const AddSiteModal = () => {
         formState: {errors},
     } = useForm();
 
-    const onCreateSite = (data) => createSite(data);
+    const onCreateSite = ({site,url}) => {      
+        createSite({
+            authorId: user.uid,
+            createdAt: new Date().toISOString(),
+            site,
+            url
+        })
+        toast({
+            title: "Success",
+            description: "We've added your site.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+        })
+        onClose();
+    };
 
     return (
         <>
@@ -42,18 +61,12 @@ const AddSiteModal = () => {
                     <ModalBody pb={6}>
                         <FormControl>
                             <FormLabel>Name</FormLabel>
-                            <Input     
-                                placeholder="My site"
-                                {...register("site", {required: true})}
-                            />
+                            <Input placeholder="My site" {...register('site', {required: true})} />
                         </FormControl>
 
                         <FormControl mt={4}>
                             <FormLabel>Link</FormLabel>
-                            <Input
-                                placeholder="https://website.com"
-                                {...register("url", {required: true})}
-                            />
+                            <Input placeholder="https://website.com" {...register('url', {required: true})} />
                         </FormControl>
                     </ModalBody>
 
