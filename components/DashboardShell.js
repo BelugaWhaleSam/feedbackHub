@@ -12,10 +12,12 @@ import {
     Text,
 } from '@chakra-ui/react';
 
+
 import {useUserContext} from '@/lib/auth';
+import {signOut} from 'firebase/auth';
 
 const DashboardShell = ({children}) => {
-    const {user} = useUserContext();
+    const {user, logoutUser} = useUserContext();
 
     return (
         <Box backgroundColor="gray.100" h="100vh">
@@ -35,7 +37,11 @@ const DashboardShell = ({children}) => {
                         <Link>Feedback</Link>
                     </Flex>
                     <Flex justifyContent="center" alignItems="center">
-                        <Link mr={4}>Account</Link>
+                        {user && (
+                            <Button variant="ghost" mr={2} onClick={() => logoutUser()}>
+                                Log Out
+                            </Button>
+                        )}
                         <Avatar size="sm" src={user?.photoURL} />
                     </Flex>
                 </Flex>
