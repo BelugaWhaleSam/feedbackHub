@@ -16,7 +16,9 @@ const EmptyState = () => (
             You haven&#39;t added any sites.
         </Heading>
         <Text mb={4}>Let&#39;s get started.</Text>
-        <AddSiteModal />
+        <AddSiteModal>
+            Add Your First Site
+        </AddSiteModal>
     </Flex>
 );
 

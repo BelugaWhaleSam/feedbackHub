@@ -9,5 +9,9 @@ export default async (_, res) => {
         sites.push({ id: doc.id, ...doc.data() });
     });
 
-    res.status(200).json(sites);
+    // we are returning the sites array as a json object
+    // therefore sites: wont be needed in the dashboard.js
+    // since we have destructured the sites array
+    // we access it using data.sites
+    res.status(200).json({sites});
 };

@@ -12,9 +12,8 @@ import {
     Text,
 } from '@chakra-ui/react';
 
-
 import {useUserContext} from '@/lib/auth';
-import {signOut} from 'firebase/auth';
+import AddSiteModal from './AddSiteModal';
 
 const DashboardShell = ({children}) => {
     const {user, logoutUser} = useUserContext();
@@ -54,18 +53,7 @@ const DashboardShell = ({children}) => {
                 </Breadcrumb>
                 <Flex justifyContent="space-between">
                     <Heading mb={8}>My Sites</Heading>
-                    <Button
-                        backgroundColor="gray.900"
-                        color="white"
-                        fontWeight="medium"
-                        _hover={{bg: 'gray.700'}}
-                        _active={{
-                            bg: 'gray.800',
-                            transform: 'scale(0.95)',
-                        }}
-                    >
-                        + Add Site
-                    </Button>
+                    <AddSiteModal>+ Add Site</AddSiteModal>
                 </Flex>
                 {children}
             </Flex>

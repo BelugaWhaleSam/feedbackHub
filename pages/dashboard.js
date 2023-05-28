@@ -1,12 +1,13 @@
-import {useUserContext} from '@/lib/auth';
 import EmptyState from '@/components/EmptyState';
 import SiteTableSkeleton from '@/components/SiteTableSkeleton';
 import DashboardShell from '@/components/DashboardShell';
+import useSWR from 'swr';
+import fetcher from '@/utils/fetcher';
+import SiteTable from '@/components/SiteTable';
 
 export default function Dashboard() {
-    const {user} = useUserContext();
-
-    if (!user) {
+    const {data} = useSWR('api/sites', fetcher);
+    if (!data) {
         return (
             <DashboardShell>
                 <SiteTableSkeleton />
@@ -16,7 +17,7 @@ export default function Dashboard() {
 
     return (
         <DashboardShell>
-            <EmptyState />
+            { data ? <SiteTable sites={data.sites}/> : <EmptyState />}
         </DashboardShell>
     );
 }
