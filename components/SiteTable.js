@@ -17,14 +17,13 @@ const SiteTable = ({sites}) => {
             </thead>
             <tbody>
                 {sites.map((site) => (
-                    <Box as="tr" key={site.data.url}>
-                        {console.log(site)}
-                        <Td>{site.data.name}</Td>
-                        <Td>{site.data.url}</Td>
+                    <Box as="tr" key={site.url}>
+                        <Td>{site.name}</Td>
+                        <Td>{site.url}</Td>
                         <Td>
                             <Link>View Feedback</Link>
                         </Td>
-                        <Td>{format(parseISO(site.data.createdAt), 'PPpp')}</Td>
+                        <Td>{format(parseISO(site.createdAt), 'PPpp')}</Td>
                     </Box>
                 ))}
             </tbody>
