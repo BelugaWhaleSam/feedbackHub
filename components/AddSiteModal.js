@@ -54,7 +54,7 @@ const AddSiteModal = ({children}) => {
                 // Added data: to the newSite object to match the 
                 // data structure of the sites array when mapping over it
                 // in the siteTable component
-                return {sites: [...data.sites, {data: newSite}]};
+                return {sites: [...data.sites, newSite]};
             },
             false
         );
