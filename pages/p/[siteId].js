@@ -1,5 +1,9 @@
-import Feedback from '@/components/Feedback';
+import {useRef, useState} from 'react';
+import {useRouter} from 'next/router';
+import {useUserContext} from '@/lib/auth';
+import {createFeedback} from '@/lib/db';
 import {getAllFeedback, getAllSites} from '@/lib/db-admin';
+import Feedback from '@/components/Feedback';
 import {Box, FormControl, FormLabel, Input, Button} from '@chakra-ui/react';
 
 // used to fetch data for specific ID
@@ -9,7 +13,7 @@ export async function getStaticProps(context) {
     // that comes from the dynamic route
 
     const siteId = context.params.siteId;
-    const feedback = await getAllFeedback(siteId);
+    const {feedback} = await getAllFeedback(siteId);
 
     return {
         props: {
@@ -19,8 +23,9 @@ export async function getStaticProps(context) {
 }
 
 // generate dynamic paths based on IDs
+// We are connecting sites to their corresponding feedback pages
 export async function getStaticPaths() {
-    const sites = await getAllSites();
+    const {sites} = await getAllSites();
     const paths = sites.map((site) => ({params: {siteId: site.id.toString()}}));
     return {
         paths,
@@ -29,14 +34,35 @@ export async function getStaticPaths() {
 }
 
 const SiteFeedback = ({initalFeedback}) => {
+    const {user} = useUserContext();
+    const router = useRouter();
+    const inputEL = useRef(null);
+    const [allfeedback, setAllFeedback] = useState(initalFeedback);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        
+        const newFeedback = {
+            author: user.displayName,
+            authorId: user.uid,
+            siteId: router.query.siteId, // Use to fetch the id for the dynamic page
+            text: inputEL.current.value,
+            createdAt: new Date().toISOString(), 
+            provider: user.providerData[0].providerId,
+            status: 'pending',
+        }
+
+        setAllFeedback([newFeedback, ...allfeedback]);
+        createFeedback(newFeedback);
+    };
     return (
-        <Box display="flex" flexDirection="column" width="full" maxWidth="700px" margin="0 auto">
+        <Box as='form' onSubmit={onSubmit} display="flex" flexDirection="column" width="full" maxWidth="700px" margin="0 auto">
             <FormControl my={8}>
                 <FormLabel>Comment</FormLabel>
-                <Input type="comment" />
+                <Input ref={inputEL} type="comment" />
                 <Button mt={2} type="submit" fontWeight="medium">Add comments</Button>
             </FormControl>
-            {initalFeedback.map((feedback) => (
+            {allfeedback.map((feedback) => (
                 <Feedback key={feedback.id} {...feedback} />
             ))}
         </Box>

@@ -5,7 +5,10 @@ export default async (req, res) => {
     // req is an object that contains information about the incoming request
     // it comes from the client
     const siteId = req.query.siteId;
-    const feedback = await getAllFeedback(siteId);
+    const {feedback, error} = await getAllFeedback(siteId);
 
+    if (error) {
+        res.status(500).json({error});
+    }
     res.status(200).json({feedback});
 };
