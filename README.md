@@ -1,4 +1,4 @@
-# Feedbackify - SaaS Feedback and Review Management Platform
+# FeedbackHub - SaaS Feedback and Review Management Platform
 
 ![image](https://github.com/BelugaWhaleSam/feedbackHub/assets/99763743/45e38abb-e2c8-489c-93c9-92593e544c68)
 
