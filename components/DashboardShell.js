@@ -1,10 +1,6 @@
 import React from 'react';
 import {
     Box,
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    Heading,
     Button,
     Flex,
     Link,
@@ -13,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 
 import {useUserContext} from '@/lib/auth';
-import AddSiteModal from './AddSiteModal';
 
 const DashboardShell = ({children}) => {
     const {user, logoutUser} = useUserContext();
@@ -46,15 +41,6 @@ const DashboardShell = ({children}) => {
                 </Flex>
             </Flex>
             <Flex margin="0 auto" direction="column" maxW="1250px" px={8}>
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink>Sites</BreadcrumbLink>
-                    </BreadcrumbItem>
-                </Breadcrumb>
-                <Flex justifyContent="space-between">
-                    <Heading mb={8}>My Sites</Heading>
-                    <AddSiteModal>+ Add Site</AddSiteModal>
-                </Flex>
                 {children}
             </Flex>
         </Box>
