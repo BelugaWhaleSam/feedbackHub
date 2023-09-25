@@ -33,7 +33,7 @@ const RemoveButton = ({feedbackId}) => {
                             Delete Feedback
                         </AlertDialogHeader>
 
-                        <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
+                        <AlertDialogBody>Are you sure? You cannot undo this action afterwards.</AlertDialogBody>
 
                         <AlertDialogFooter>
                             <Button ref={cancelRef} onClick={onClose}>
