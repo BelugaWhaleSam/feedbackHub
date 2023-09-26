@@ -1,4 +1,7 @@
 import React, {useRef} from 'react';
+import {useUserContext} from '@/lib/auth';
+import {mutate} from 'swr';
+import {deleteFeedback} from '@/lib/db';
 import {
     AlertDialog,
     AlertDialogBody,
@@ -11,16 +14,31 @@ import {
     Button,
 } from '@chakra-ui/react';
 import {DeleteIcon} from '@chakra-ui/icons';
-import {deleteFeedback} from '@/lib/db';
 
 const RemoveButton = ({feedbackId}) => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const cancelRef = useRef();
+    const {user} = useUserContext();
+
     const onDelete = () => {
         // console.log(feedbackId);
         deleteFeedback(feedbackId);
+        mutate(
+            ['/api/feedback', user.accessToken],
+            async (data) => {
+                console.log('data', data);
+                // Added data: to the newSite object to match the
+                // data structure of the sites array when mapping over it
+                // in the siteTable component
+                // below data.feedback is filtered to remove the feedback that was deleted
+                // data.feedback.filter((feedback) => feedback.id === feedbackId);
+
+                return {feedback: data.feedback.filter((feedback) => feedback.id !== feedbackId)};
+            },
+            false
+        );
         onClose();
-    }
+    };
 
     return (
         <>
