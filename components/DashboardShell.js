@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-    Box,
-    Button,
-    Flex,
-    Link,
-    Avatar,
-    Text,
-} from '@chakra-ui/react';
-
+import {Box, Button, Flex, Link, Avatar, Text, Icon} from '@chakra-ui/react';
+import NextLink from 'next/link';
 import {useUserContext} from '@/lib/auth';
+import {logo} from '@/styles/theme';
 
 const DashboardShell = ({children}) => {
     const {user, logoutUser} = useUserContext();
@@ -26,9 +20,16 @@ const DashboardShell = ({children}) => {
                     w="full"
                     px={8}
                 >
-                    <Flex>
-                        <Link mr={4}>Sites</Link>
-                        <Link>Feedback</Link>
+                    <Flex align="center" gap={4}>
+                        <NextLink as="a" href="/" passHref>
+                            <Icon as={logo} boxSize="40px" mr={2} />
+                        </NextLink>
+                        <Button as="a" href="/dashboard" backgroundColor="white">
+                            Sites
+                        </Button>
+                        <Button as="a" href="/feedback" backgroundColor="white">
+                            Feedback
+                        </Button>
                     </Flex>
                     <Flex justifyContent="center" alignItems="center">
                         {user && (
