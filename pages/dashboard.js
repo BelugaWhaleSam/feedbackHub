@@ -19,11 +19,10 @@ export default function Dashboard() {
             </DashboardShell>
         );
     }
-    console.log(data);
     return (
         <DashboardShell>
             <SiteTableHeader />
-            {data.sites ? <SiteTable sites={data.sites} /> : <EmptyState />}
+            {data.sites.length==1 ? <SiteTable sites={data.sites} /> : <EmptyState />}
         </DashboardShell>
     );
 }
