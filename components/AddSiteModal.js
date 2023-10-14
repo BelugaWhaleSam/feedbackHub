@@ -51,7 +51,7 @@ const AddSiteModal = ({children}) => {
         mutate(
             ['/api/sites', user.accessToken],
             async (data) => {
-                console.log("data",data);
+                // console.log("data",data);
                 // Added data: to the newSite object to match the
                 // data structure of the sites array when mapping over it
                 // in the siteTable component
