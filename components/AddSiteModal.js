@@ -32,14 +32,15 @@ const AddSiteModal = ({children}) => {
         formState: {errors},
     } = useForm();
 
-    const onCreateSite = ({name, url}) => {
+    const onCreateSite = async ({name, url}) => {
         const newSite = {
             name,
             authorId: user.uid,
             url,
             createdAt: new Date().toISOString(),
         };
-        createSite(newSite);
+        const id = await createSite(newSite);
+        console.log("data",id);
         toast({
             title: 'Success',
             description: "We've added your site.",
@@ -50,18 +51,13 @@ const AddSiteModal = ({children}) => {
 
         mutate(
             ['/api/sites', user.accessToken],
-            async (data) => {
-                // console.log("data",data);
-                // Added data: to the newSite object to match the
-                // data structure of the sites array when mapping over it
-                // in the siteTable component
-                return {sites: [newSite, ...data.sites]};
-            },
+            async (data) => ({
+              sites: [{ id, ...newSite }, ...data.sites]
+            }),
             false
-        );
-
-        onClose();
-    };
+          );
+          onClose();
+        };
 
     return (
         <>
