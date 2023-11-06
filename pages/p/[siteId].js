@@ -30,7 +30,7 @@ export async function getStaticPaths() {
     const paths = sites.map((site) => ({params: {siteId: site.id.toString()}}));
     return {
         paths,
-        fallback: false, // See the "fallback" section below
+        fallback: true, // See the "fallback" section below
     };
 }
 
@@ -53,6 +53,7 @@ const SiteFeedback = ({initalFeedback}) => {
             status: 'pending',
         }
 
+        inputEL.current.value = '';
         setAllFeedback([newFeedback, ...allfeedback]);
         createFeedback(newFeedback);
     };
@@ -63,7 +64,7 @@ const SiteFeedback = ({initalFeedback}) => {
                 <Input ref={inputEL} type="comment" />
                 <Button mt={2} type="submit" fontWeight="medium">Add comments</Button>
             </FormControl>
-            {allfeedback.map((feedback) => (
+            {allfeedback && allfeedback.map((feedback) => (
                 <Feedback key={feedback.id} {...feedback} />
             ))}
         </Box>
