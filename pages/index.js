@@ -1,25 +1,12 @@
 import Head from 'next/head';
 import {useUserContext} from '@/lib/auth';
-import {Button, Icon, Flex, Text, Stack, Box} from '@chakra-ui/react';
+import {Button, Icon, Flex, Text, Stack} from '@chakra-ui/react';
 import {logo} from '@/styles/theme';
 import {FaGithub} from 'react-icons/fa';
 import {FcGoogle} from 'react-icons/fc';
-import {getAllFeedback} from '@/lib/db-admin';
-import Feedback from '@/components/Feedback';
 
-const SITE_ID = 'TpaHDInyI87dTmPxHhC1';
 
-export async function getStaticProps(context) {
-    const {feedback} = await getAllFeedback(SITE_ID);
-    return {
-        props: {
-            allFeedback: feedback,
-        },
-        revalidate: 1,
-    };
-}
-
-const Home = ({allFeedback}) => {
+const Home = () => {
     const {user, signInWithGithub, signInWithGoogle} = useUserContext();
     return (
         <>
@@ -97,23 +84,6 @@ const Home = ({allFeedback}) => {
                         </Button>
                     </Stack>
                 )}
-                <Box display="flex" flexDirection="column" width="full" maxWidth="700px" margin="0 auto" mt={12} px={4}>
-                    <Button
-                        mt={4}
-                        mb={4}
-                        size="md"
-                        backgroundColor="black"
-                        color="white"
-                        variant="outline"
-                        fontWeight="medium"
-                        _hover={{bg: 'black'}}
-                    >
-                        Comments
-                    </Button>
-                    {allFeedback.map((feedback) => (
-                        <Feedback key={feedback.id} {...feedback} />
-                    ))}
-                </Box>
             </Flex>
         </>
     );
