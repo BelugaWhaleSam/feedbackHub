@@ -64,7 +64,7 @@ const SiteFeedback = ({initalFeedback}) => {
                 <Input ref={inputEL} type="comment" />
                 <Button mt={2} type="submit" fontWeight="medium">Add comments</Button>
             </FormControl>
-            {allfeedback.map((feedback) => (
+            {allfeedback && allfeedback.map((feedback) => (
                 <Feedback key={feedback.id} {...feedback} />
             ))}
         </Box>

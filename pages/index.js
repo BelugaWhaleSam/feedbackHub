@@ -23,7 +23,7 @@ const Home = () => {
                 <title>Fast Feedback</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Flex as="main" maxW="md" mx="auto" direction="column" align="center" justify="center" h="180vh">
+            <Flex as="main" maxW="md" mx="auto" direction="column" align="center" justify="center" h="100vh">
                 <Icon as={logo} boxSize="64px" />
                 <Text fontSize="lg" as="cite" p={8}>
                     <b>Feedback Hub</b> is a live-deployed SaaS project built with Next. It allows website owners to
