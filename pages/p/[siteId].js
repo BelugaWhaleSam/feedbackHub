@@ -30,7 +30,7 @@ export async function getStaticPaths() {
     const paths = sites.map((site) => ({params: {siteId: site.id.toString()}}));
     return {
         paths,
-        fallback: false, // See the "fallback" section below
+        fallback: true, // See the "fallback" section below
     };
 }
 
@@ -53,6 +53,7 @@ const SiteFeedback = ({initalFeedback}) => {
             status: 'pending',
         }
 
+        inputEL.current.value = '';
         setAllFeedback([newFeedback, ...allfeedback]);
         createFeedback(newFeedback);
     };
