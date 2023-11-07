@@ -2,7 +2,7 @@
 
 ![image](https://github.com/BelugaWhaleSam/feedbackHub/assets/99763743/45e38abb-e2c8-489c-93c9-92593e544c68)
 
-Feedbackify is a live-deployed SaaS project built with Next.js, Chakra UI, Vercel CI/CD, Firebase for Authentication and Database, and SWR. It allows website owners to seamlessly add feedback and reviews functionality to their websites and manage them efficiently. My future plans include JWT authentication, Stripe subscription integration, extensive testing, iframes integration, and production deployment.
+FeedbackHub is a live-deployed SaaS project built with Next.js, Chakra UI, Vercel CI/CD, Firebase for Authentication and Database, and SWR. It allows website owners to seamlessly add feedback and reviews functionality to their websites and manage them efficiently. My future plans include JWT authentication, Stripe subscription integration, extensive testing, iframes integration, and production deployment.
 
 ## Table of Contents
 
