@@ -50,9 +50,7 @@ const RemoveButton = ({feedbackId}) => {
                         <AlertDialogHeader fontSize="lg" fontWeight="bold">
                             Delete Feedback
                         </AlertDialogHeader>
-
                         <AlertDialogBody>Are you sure? You cannot undo this action afterwards.</AlertDialogBody>
-
                         <AlertDialogFooter>
                             <Button ref={cancelRef} onClick={onClose}>
                                 Cancel

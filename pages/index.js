@@ -1,12 +1,23 @@
 import Head from 'next/head';
 import {useUserContext} from '@/lib/auth';
-import {Button, Icon, Flex, Text, Stack} from '@chakra-ui/react';
+import {Button, Icon, Flex, Text, Stack ,Box} from '@chakra-ui/react';
 import {logo} from '@/styles/theme';
 import {FaGithub} from 'react-icons/fa';
 import {FcGoogle} from 'react-icons/fc';
+import {getAllFeedback} from '@/lib/db-admin';
+import Feedback from '@/components/Feedback';
 
-
-const Home = () => {
+const SITE_ID = 'A0gY2yMpSLeU5ZxcNpSq';
+export async function getStaticProps(context) {
+    const {feedback} = await getAllFeedback(SITE_ID);
+    return {
+        props: {
+            allFeedback: feedback || [],
+        }, // will be passed to the page component as props
+        revalidate: 1,
+    };
+}
+const Home = ({allFeedback}) => {
     const {user, signInWithGithub, signInWithGoogle} = useUserContext();
     return (
         <>
@@ -84,6 +95,15 @@ const Home = () => {
                         </Button>
                     </Stack>
                 )}
+                <Box display="flex" flexDirection="column" width="full" maxWidth="700px" margin="0 auto" mt={8} px={4}>
+                    {allFeedback.map((feedback, index) => (
+                        <Feedback
+                            key={feedback.id}
+                            isLast={index === allFeedback.length - 1}
+                            {...feedback}
+                        />
+                    ))}
+                </Box>
             </Flex>
         </>
     );
