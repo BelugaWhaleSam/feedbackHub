@@ -1,4 +1,4 @@
-import {Flex, Link} from '@chakra-ui/core';
+import {Flex, Link} from '@chakra-ui/react';
 
 export default function FeedbackLink({paths}) {
     return (

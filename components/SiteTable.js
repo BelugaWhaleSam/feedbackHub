@@ -19,7 +19,7 @@ const SiteTable = ({sites}) => {
             <tbody>
                 {sites.map((site) => (
                     <Box as="tr" key={site.url}>
-                        <Td>{site.name}</Td>
+                        <Td fontWeight="medium">{site.name}</Td>
                         <Td>{site.url}</Td>
                         <Td>
                             <NextLink href="/p/[siteId]" as={`/p/${site.id}`} passHref>

@@ -6,8 +6,9 @@ import fetcher from '@/utils/fetcher';
 import SiteTable from '@/components/SiteTable';
 import {useUserContext} from '@/lib/auth';
 import SiteTableHeader from '@/components/SiteTableHeader';
+import Page from '@/components/Page';
 
-export default function Dashboard() {
+const Dashboard = () => {
     const {user} = useUserContext();
     const {data} = useSWR(user ? ['/api/sites', user.accessToken] : null, fetcher);
     // const { data } = useSWR(['/api/sites', user.accessToken], ([url, token]) => fetcher(url, token))
@@ -26,3 +27,11 @@ export default function Dashboard() {
         </DashboardShell>
     );
 }
+
+const DashboardPage = () => (
+    <Page name="Dashboard" path="/sites">
+      <Dashboard />
+    </Page>
+  );
+  
+  export default DashboardPage;
