@@ -6,8 +6,8 @@ import fetcher from '@/utils/fetcher';
 import FeedbackTable from '@/components/FeedbackTable';
 import {useUserContext} from '@/lib/auth';
 import FeedbackTableHeader from '@/components/FeedbackTableHeader';
-
-export default function MyFeedback() {
+import Page from '@/components/Page';
+const SiteFeedback = () => {
     const {user} = useUserContext();
     const {data} = useSWR(user ? ['/api/feedback', user.accessToken] : null, fetcher);
     // const { data } = useSWR(['/api/sites', user.accessToken], ([url, token]) => fetcher(url, token))
@@ -25,4 +25,12 @@ export default function MyFeedback() {
             {data.feedback ? <FeedbackTable allFeedback={data.feedback} /> : <EmptyState />}
         </DashboardShell>
     );
-}
+};
+
+const SiteFeedbackPage = () => (
+    <Page name="Name of site Feedback" path="/feedback">
+        <SiteFeedback />
+    </Page>
+);
+
+export default SiteFeedbackPage;

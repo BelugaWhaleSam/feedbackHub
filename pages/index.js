@@ -47,7 +47,7 @@ const Home = ({allFeedback}) => {
                         href="/dashboard"
                         backgroundColor="gray.900"
                         color="white"
-                        fontWeight="medium"
+                        fontWeight="700"
                         mt={4}
                         maxW="200px"
                         _hover={{bg: 'gray.700'}}
