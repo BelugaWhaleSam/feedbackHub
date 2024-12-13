@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import {useUserContext} from '@/lib/auth';
-import {Button, Icon, Flex, Text, Stack ,Box} from '@chakra-ui/react';
+import {Button, Icon, Flex, Text, Stack, Box} from '@chakra-ui/react';
 import {logo} from '@/styles/theme';
 import {FaGithub} from 'react-icons/fa';
 import {FcGoogle} from 'react-icons/fc';
 import {getAllFeedback} from '@/lib/db-admin';
 import Feedback from '@/components/Feedback';
 
-const SITE_ID = 'A0gY2yMpSLeU5ZxcNpSq';
+const SITE_ID = 'ZnEHiDPkXDNhLk4paggu';
 export async function getStaticProps(context) {
     const {feedback} = await getAllFeedback(SITE_ID);
     return {
@@ -97,11 +97,7 @@ const Home = ({allFeedback}) => {
                 )}
                 <Box display="flex" flexDirection="column" width="full" maxWidth="700px" margin="0 auto" mt={8} px={4}>
                     {allFeedback.map((feedback, index) => (
-                        <Feedback
-                            key={feedback.id}
-                            isLast={index === allFeedback.length - 1}
-                            {...feedback}
-                        />
+                        <Feedback key={feedback.id} isLast={index === allFeedback.length - 1} {...feedback} />
                     ))}
                 </Box>
             </Flex>

@@ -26,12 +26,12 @@ const Dashboard = () => {
             {data.sites ? <SiteTable sites={data.sites} /> : <EmptyState />}
         </DashboardShell>
     );
-}
+};
 
 const DashboardPage = () => (
     <Page name="Dashboard" path="/sites">
-      <Dashboard />
+        <Dashboard />
     </Page>
-  );
-  
-  export default DashboardPage;
+);
+
+export default DashboardPage;
