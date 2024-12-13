@@ -40,7 +40,6 @@ const AddSiteModal = ({children}) => {
             createdAt: new Date().toISOString(),
         };
         const id = await createSite(newSite);
-        console.log("data",id);
         toast({
             title: 'Success',
             description: "We've added your site.",
@@ -52,12 +51,12 @@ const AddSiteModal = ({children}) => {
         mutate(
             ['/api/sites', user.accessToken],
             async (data) => ({
-              sites: [{ id, ...newSite }, ...data.sites]
+                sites: [{id, ...newSite}, ...data.sites],
             }),
             false
-          );
-          onClose();
-        };
+        );
+        onClose();
+    };
 
     return (
         <>

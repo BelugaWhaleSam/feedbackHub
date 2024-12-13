@@ -1,28 +1,29 @@
-import EmptyState from '@/components/EmptyState';
 import FeedbackTableSkeleton from '@/components/FeedbackTableSkeleton';
 import DashboardShell from '@/components/DashboardShell';
 import useSWR from 'swr';
 import fetcher from '@/utils/fetcher';
 import FeedbackTable from '@/components/FeedbackTable';
 import {useUserContext} from '@/lib/auth';
-import FeedbackTableHeader from '@/components/FeedbackTableHeader';
 import Page from '@/components/Page';
+import SiteFeedbackTableHeader from '@/components/SiteFeedbackTableHeader';
+import FeedbackEmptyState from '@/components/FeedbackEmptyState';
+import {useRouter} from 'next/router';
 const SiteFeedback = () => {
     const {user} = useUserContext();
-    const {data} = useSWR(user ? ['/api/feedback', user.accessToken] : null, fetcher);
-    // const { data } = useSWR(['/api/sites', user.accessToken], ([url, token]) => fetcher(url, token))
+    const {query} = useRouter();
+    const {data} = useSWR(user ? [`/api/feedback/${query.siteId}`, user.accessToken] : null, fetcher);
     if (!data) {
         return (
             <DashboardShell>
-                <FeedbackTableHeader />
+                <SiteFeedbackTableHeader />
                 <FeedbackTableSkeleton />
             </DashboardShell>
         );
     }
     return (
         <DashboardShell>
-            <FeedbackTableHeader />
-            {data.feedback ? <FeedbackTable allFeedback={data.feedback} /> : <EmptyState />}
+            <SiteFeedbackTableHeader siteName={data.site.name} />
+            {data?.feedback?.length ? <FeedbackTable allFeedback={data.feedback} /> : <FeedbackEmptyState />}
         </DashboardShell>
     );
 };

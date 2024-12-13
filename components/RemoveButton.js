@@ -26,7 +26,6 @@ const RemoveButton = ({feedbackId}) => {
         mutate(
             ['/api/feedback', user.accessToken],
             async (data) => {
-                console.log('data', data);
                 // Added data: to the newSite object to match the
                 // data structure of the sites array when mapping over it
                 // in the siteTable component
